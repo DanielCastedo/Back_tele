@@ -3,7 +3,7 @@ import { Device } from "../models/Device.js";
 
 export const createTelemetry = async (req, res) => {
   try {
-    const { device_uuid, ts_utc, latitude, longitude, battery_level, signal_dbm, network_type, carrier_name } = req.body;
+    const { device_uuid, ts_utc, latitude, longitude, battery_level, signal_dbm, network_type, carrier_name, accuracy_meters, bearing_deg, is_charging, speed_mps } = req.body;
 
     const device = await Device.findOne({ where: { device_uuid } });
     if (!device) {
@@ -19,6 +19,10 @@ export const createTelemetry = async (req, res) => {
       signal_dbm,
       network_type,
       carrier_name,
+      accuracy_meters, 
+      bearing_deg, 
+      is_charging, 
+      speed_mps,
     });
     
     console.log("Telemetry record received:", telemetry);
