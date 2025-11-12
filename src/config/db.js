@@ -13,6 +13,7 @@ export const sequelize = new Sequelize(
     port: process.env.DB_PORT || 5432, // Asegura el puerto
     dialect: "postgres",
     logging: false,
+    timezone: "-04:00", // 🕒 Zona horaria Bolivia (UTC-4)
     dialectOptions: {
       ssl:
         process.env.DB_SSL === "true"
