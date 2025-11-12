@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: telemetry-api
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: DB_HOST
+        value: dpg-d4a79lvdiees73cu2ti0-a.oregon-postgres.render.com
+      - key: DB_PORT
+        value: 5432
+      - key: DB_NAME
+        value: telemetry_6ct3
+      - key: DB_USER
+        value: telemetry
+      - key: DB_PASS
+        value: KAOKEVmnqOXkBy58rS11ymnpwVmEwKI2
+      - key: DB_SSL
+        value: "true"
