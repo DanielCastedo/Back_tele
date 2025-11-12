@@ -3,28 +3,34 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+// 🔧 Configuración de la conexión a PostgreSQL (Render + local)
 export const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
   process.env.DB_PASS,
   {
     host: process.env.DB_HOST,
-    dialect: "postgres", // o 'mysql'
+    port: process.env.DB_PORT || 5432, // Asegura el puerto
+    dialect: "postgres",
     logging: false,
     dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false, // 👈 necesario en Render
-      },
+      ssl:
+        process.env.DB_SSL === "true"
+          ? {
+              require: true,
+              rejectUnauthorized: false, // Necesario en Render
+            }
+          : false,
     },
   }
 );
 
+// 🔌 Función para probar la conexión
 export const connectDB = async () => {
   try {
     await sequelize.authenticate();
     console.log("✅ Conexión a la base de datos exitosa");
   } catch (error) {
-    console.error("❌ Error de conexión a la base de datos:", error);
+    console.error("❌ Error de conexión a la base de datos:", error.message);
   }
 };
